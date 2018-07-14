@@ -2,7 +2,7 @@
 
 namespace UnityGeometryHelper
 {
-    class QuaternionUtility
+    public class QuaternionUtility
     {
         public static Quaternion Euler(float x, float y, float z)
         {
