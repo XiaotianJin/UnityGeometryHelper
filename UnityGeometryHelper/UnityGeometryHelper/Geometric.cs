@@ -138,25 +138,6 @@ namespace UnityGeometryHelper
             return false;
         }
 
-        public static bool IsPointAlmostOnSegment(Vector3 lineP1, Vector3 lineP2, float width, Vector3 toCheck)
-        {
-            Vector3 _lineDir = (lineP2 - lineP1).normalized;
-            Quaternion q = QuaternionUtility.Euler(0, 90, 0);
-            Vector3 _rightDir = (q * _lineDir).normalized;
-
-            Vector3 diff = _rightDir * width - _lineDir * width;
-
-            Vector3 lp1Right = lineP1 + diff;
-            Vector3 lp1Left = lineP1 - diff;
-
-            Vector3 lp2Right = lineP2 + diff;
-            Vector3 lp2Left = lineP2 - diff;
-
-            var res = Geometric.IsPointInArea(new[] { lp1Right, lp2Right, lp2Left, lp1Left }, toCheck);
-            return res;
-        }
-
-
         public static bool IsAreaFullyInAnotherArea(Vector3[] area1, Vector3[] area2)
         {
             int n1 = area1.Length;
@@ -455,6 +436,25 @@ namespace UnityGeometryHelper
         #endregion
 
         #region 点线关系
+
+        public static bool IsPointAlmostOnSegment(Vector3 lineP1, Vector3 lineP2, float width, Vector3 toCheck)
+        {
+            Vector3 _lineDir = (lineP2 - lineP1).normalized;
+            Quaternion q = QuaternionUtility.Euler(0, 90, 0);
+            Vector3 _rightDir = (q * _lineDir).normalized;
+
+            Vector3 diff = _rightDir * width - _lineDir * width;
+
+            Vector3 lp1Right = lineP1 + diff;
+            Vector3 lp1Left = lineP1 - diff;
+
+            Vector3 lp2Right = lineP2 + diff;
+            Vector3 lp2Left = lineP2 - diff;
+
+            var res = Geometric.IsPointInArea(new[] { lp1Right, lp2Right, lp2Left, lp1Left }, toCheck);
+            return res;
+        }
+
 
         /// <summary>
         /// 点到线距离
