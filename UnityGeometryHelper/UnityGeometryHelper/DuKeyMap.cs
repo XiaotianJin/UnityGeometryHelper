@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace UnityGeometryHelper
 {
-    internal class Tuple<TKey, TValue>
+    public class Tuple<TKey, TValue>
     {
         public TKey Key;
         public TValue Value;
@@ -20,7 +20,7 @@ namespace UnityGeometryHelper
         }
     }
 
-    internal class DupKeyMap<TKey, TValue>
+    public class DupKeyMap<TKey, TValue>
     {
         public List<Tuple<TKey, TValue>> StorageList =
             new List<Tuple<TKey, TValue>>();

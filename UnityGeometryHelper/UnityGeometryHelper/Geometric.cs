@@ -890,10 +890,19 @@ namespace UnityGeometryHelper
 
         public static float GetHoverDis(Vector3 lp1, Vector3 lp2, Vector3 modelP)
         {
-            var _area = Geometric.GetArea(lp1, lp2, modelP);//三角形面积
-            var _lLength = Vector3.Distance(lp1, lp2);//lp1,lp2长度
+            var _lp1 = new Vector3(lp1.x, 0, lp1.z);
+            var _lp2 = new Vector3(lp2.x, 0, lp2.z);
+            var _modelP = new Vector3(modelP.x, 0, modelP.z);
+
+            var _area = Geometric.GetArea(_lp1, _lp2, _modelP);//三角形面积
+            var _lLength = Vector3.Distance(_lp1, _lp2);//lp1,lp2长度
             var dis = 2 * _area / _lLength;//modelP到lp1,lp2的距离
             return dis;
+        }
+
+        public static bool IsHover(Vector3 lp1, Vector3 lp2, Vector3 modelP)
+        {
+            return !GetHoverPoint(lp1, lp2, modelP, 999).Equals(default(Vector3));
         }
 
         public static Vector3 GetHoverPointOfLine(Vector3 lp1, Vector3 lp2, Vector3 modelP, float attachR)
