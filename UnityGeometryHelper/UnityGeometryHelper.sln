@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityGeometryHelper", "UnityGeometryHelper\UnityGeometryHelper.csproj", "{3C633A68-E6A0-4CA5-B423-9C616E34D93A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{8AB2080F-9B8B-4181-AE3B-51E58A88BF3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3C633A68-E6A0-4CA5-B423-9C616E34D93A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C633A68-E6A0-4CA5-B423-9C616E34D93A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C633A68-E6A0-4CA5-B423-9C616E34D93A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB2080F-9B8B-4181-AE3B-51E58A88BF3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB2080F-9B8B-4181-AE3B-51E58A88BF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB2080F-9B8B-4181-AE3B-51E58A88BF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB2080F-9B8B-4181-AE3B-51E58A88BF3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

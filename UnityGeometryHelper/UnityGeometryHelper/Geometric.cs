@@ -410,6 +410,12 @@ namespace UnityGeometryHelper
                 && sgn(Cross(p1, p4, p1, p2) * Cross(p1, p2, p1, p3)) >= 0;
         }
 
+        public static bool IsTwoLinePointPartCover(Vector3 a, Vector3 b, Vector3 c, Vector3 d, float offset = 0.03f)
+        {
+            return Geometric.IsPointAlmostOnSegment(a, b, offset, c) || Geometric.IsPointAlmostOnSegment(a, b, offset, d) ||
+                   Geometric.IsPointAlmostOnSegment(c, d, offset, a) || Geometric.IsPointAlmostOnSegment(c, d, offset, b);
+        }
+
         static Vector3 Inter(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
         {
             //特判：某顶点在另外一条直线上时
