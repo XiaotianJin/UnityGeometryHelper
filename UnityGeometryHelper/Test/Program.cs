@@ -12,11 +12,27 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            Vector3 a = new Vector3(0,0,0);
-            Vector3 b = new Vector3(0,0,2);
-            Vector3 c = new Vector3(0,0,1);
-            Vector3 d = new Vector3(1,0,1);
-            Console.WriteLine(Geometric.Meet(a,b,c,d));
+            List<Vector3> points = new List<Vector3>()
+            {
+                new Vector3(0,0,0),
+                new Vector3(0,0,5),
+                new Vector3(2,0,5),
+                new Vector3(2,0,3),
+                new Vector3(5,0,3),
+                new Vector3(5,0,5),
+                new Vector3(7,0,5),
+                new Vector3(7,0,0),
+                new Vector3(0,0,0),
+            };
+
+            Vector3 checkP = new Vector3(3, 0, 5);
+            Console.WriteLine(Geometric.IsPointInArea(points.ToArray(), checkP));
+
+            Console.WriteLine(Geometric.Meet(points[2], points[3], checkP, new Vector3(0, 0, 5)));
+
+            checkP = new Vector3(1,0,3);
+            Console.WriteLine(Geometric.IsPointInArea(points.ToArray(), checkP));
+
         }
     }
 }

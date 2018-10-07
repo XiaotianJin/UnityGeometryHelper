@@ -239,8 +239,8 @@ namespace UnityGeometryHelper
 
         private static bool PNpoly_Y(int polySides, Vector3[] RegionVertexes, float x, float z)
         {
-            Vector3 pointLeft = new Vector3(x, 0, z - 999999);
-            Vector3 pointRight = new Vector3(x, 0, z + 999999);
+            Vector3 pointLeft = new Vector3(x, 0, z - 9999);
+            Vector3 pointRight = new Vector3(x, 0, z + 9999);
             Vector3 pointSelf = new Vector3(x, 0, z);
 
             int left = 0;
@@ -249,11 +249,11 @@ namespace UnityGeometryHelper
             {
                 Vector3 point1 = RegionVertexes[i];
                 Vector3 point2 = RegionVertexes[(i + 1) % polySides];
-                if (Meet(pointLeft, pointSelf, point1, point2))
+                if (Meet(pointLeft, pointSelf, point1, point2) && !Geometric.IsDirParallel(pointLeft - pointSelf, point2 - point1))
                 {
                     left++;
                 }
-                else if (Meet(pointRight, pointSelf, point1, point2))
+                else if (Meet(pointRight, pointSelf, point1, point2) && !Geometric.IsDirParallel(pointRight - pointSelf, point2 - point1))
                 {
                     right++;
                 }
@@ -269,8 +269,8 @@ namespace UnityGeometryHelper
 
         private static bool PNpoly_X(int polySides, Vector3[] RegionVertexes, float x, float z)
         {
-            Vector3 pointLeft = new Vector3(x - 9999999, 0, z);
-            Vector3 pointRight = new Vector3(x + 9999999, 0, z);
+            Vector3 pointLeft = new Vector3(x - 9999, 0, z);
+            Vector3 pointRight = new Vector3(x + 9999, 0, z);
             Vector3 pointSelf = new Vector3(x, 0, z);
 
             int left = 0;
@@ -279,11 +279,11 @@ namespace UnityGeometryHelper
             {
                 Vector3 point1 = RegionVertexes[i];
                 Vector3 point2 = RegionVertexes[(i + 1) % polySides];
-                if (Meet(pointLeft, pointSelf, point1, point2))
+                if (Meet(pointLeft, pointSelf, point1, point2) && !Geometric.IsDirParallel(pointLeft-pointSelf, point2-point1))
                 {
                     left++;
                 }
-                else if (Meet(pointRight, pointSelf, point1, point2))
+                else if (Meet(pointRight, pointSelf, point1, point2) && !Geometric.IsDirParallel(pointRight - pointSelf, point2 - point1))
                 {
                     right++;
                 }
@@ -408,6 +408,12 @@ namespace UnityGeometryHelper
                 && Mathf.Max(Mathf.Min(p1.z, p2.z), Mathf.Min(p3.z, p4.z)) <= Mathf.Min(Mathf.Max(p1.z, p2.z), Mathf.Max(p3.z, p4.z))
                 && sgn(Cross(p3, p2, p3, p4) * Cross(p3, p4, p3, p1)) >= 0
                 && sgn(Cross(p1, p4, p1, p2) * Cross(p1, p2, p1, p3)) >= 0;
+        }
+
+        public static bool Meet_crossWay(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+        {
+            Vector3 crossP = GetCrossPointOfLine(p1, p2, p3, p4);
+            return Geometric.IsPointOnSegment(p1, p2, crossP) && Geometric.IsPointOnSegment(p3, p4, crossP);
         }
 
         public static bool IsTwoLinePointPartCover(Vector3 a, Vector3 b, Vector3 c, Vector3 d, float offset = 0.03f)
@@ -723,7 +729,7 @@ namespace UnityGeometryHelper
                 allP.Add(getter(points[i]));
             }
 
-            var pRes = DividePointsByLine(a, b, allP);
+            List<List<Vector3>> pRes = DividePointsByLine(a, b, allP);
             List<List<T>> res = new List<List<T>>();
             for (int i = 0; i < pRes.Count; i++)
             {
@@ -744,6 +750,25 @@ namespace UnityGeometryHelper
         #endregion
 
         #region V3操作
+
+
+        public delegate float distanceCalc(Vector3 a, Vector3 b);
+        /// <summary>
+        /// 比较checker是不是比pin要离target更远
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="check"></param>
+        /// <param name="pin"></param>
+        /// <returns></returns>
+        public static bool IsFarFrom(Vector3 target, Vector3 check, Vector3 pin, distanceCalc calc)
+        {
+            return calc(target, check) > calc(target, pin);
+        }
+
+        public static bool IsOnLeft(Vector3 forward, Vector3 toCheck)
+        {
+            return Vector3.Cross(forward, toCheck).y < 0;
+        }
 
         /// <summary>
         /// 求y平面A-B的顺时针角度，
