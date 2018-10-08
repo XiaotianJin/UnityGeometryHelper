@@ -249,11 +249,11 @@ namespace UnityGeometryHelper
             {
                 Vector3 point1 = RegionVertexes[i];
                 Vector3 point2 = RegionVertexes[(i + 1) % polySides];
-                if (Meet(pointLeft, pointSelf, point1, point2) && !Geometric.IsDirParallel(pointLeft - pointSelf, point2 - point1))
+                if (Meet(pointLeft, pointSelf, point1, point2)/* && !Geometric.IsDirParallel(pointLeft - pointSelf, point2 - point1)*/)
                 {
                     left++;
                 }
-                else if (Meet(pointRight, pointSelf, point1, point2) && !Geometric.IsDirParallel(pointRight - pointSelf, point2 - point1))
+                else if (Meet(pointRight, pointSelf, point1, point2)/* && !Geometric.IsDirParallel(pointRight - pointSelf, point2 - point1)*/)
                 {
                     right++;
                 }
@@ -279,11 +279,11 @@ namespace UnityGeometryHelper
             {
                 Vector3 point1 = RegionVertexes[i];
                 Vector3 point2 = RegionVertexes[(i + 1) % polySides];
-                if (Meet(pointLeft, pointSelf, point1, point2) && !Geometric.IsDirParallel(pointLeft-pointSelf, point2-point1))
+                if (Meet(pointLeft, pointSelf, point1, point2)/* && !Geometric.IsDirParallel(pointLeft-pointSelf, point2-point1)*/)
                 {
                     left++;
                 }
-                else if (Meet(pointRight, pointSelf, point1, point2) && !Geometric.IsDirParallel(pointRight - pointSelf, point2 - point1))
+                else if (Meet(pointRight, pointSelf, point1, point2)/* && !Geometric.IsDirParallel(pointRight - pointSelf, point2 - point1)*/)
                 {
                     right++;
                 }
@@ -700,7 +700,7 @@ namespace UnityGeometryHelper
             return isOnRightMap.Values.ToList();
         }
 
-        private static bool IsOnRight(Vector3 a, Vector3 b, Vector3 p)
+        public static bool IsOnRight(Vector3 a, Vector3 b, Vector3 p)
         {
             Vector3 abDir = (b - a).normalized;// 线方向
             Vector3 apDir = (p - a).normalized;// 点方向
