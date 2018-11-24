@@ -882,6 +882,10 @@ namespace UnityGeometryHelper
         public static bool AlmostOnLine(Vector3 lineP1, Vector3 lineP2, float width, Vector3 toCheck)
         {
             Vector3 _lineDir = (lineP2 - lineP1).normalized;
+
+            lineP1 += _lineDir*99;
+            lineP2 -= _lineDir*99;
+
             Quaternion q = QuaternionUtility.Euler(0, 90, 0);
             Vector3 _rightDir = (q * _lineDir).normalized;
 
@@ -948,8 +952,8 @@ namespace UnityGeometryHelper
 
             Vector3 lDir = lp1 - lp2;//直线方向
             Vector3 mDir = QuaternionUtility.Euler(0, 90, 0) * lDir;//xz平面上垂直直线方向
-            Vector3 __S = modelP - mDir * 999;
-            Vector3 __E = modelP + mDir * 999;//临时的两个线点
+            Vector3 __S = modelP - mDir * 99;
+            Vector3 __E = modelP + mDir * 99;//临时的两个线点
 
             //if (!Geometric.Meet(__S, __E, lp1, lp2))//不相交
             //{
@@ -958,9 +962,19 @@ namespace UnityGeometryHelper
 
             //到这里还能执行的话是相交且接近, 就要计算点
             Vector3 res = Geometric.GetCrossPointOfLine(__E, __S, lp1, lp2);
+
+            if ((Mathf.Abs(res.x - modelP.x) < 0.01f))
+            {
+                res.x = modelP.x;
+            }
+
+            if ((Mathf.Abs(res.z - modelP.z) < 0.01f))
+            {
+                res.z = modelP.z;
+            }
+
             return res;
         }
-
 
         #endregion
     }

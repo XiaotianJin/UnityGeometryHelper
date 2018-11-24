@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityGeometryHelper;
 
@@ -12,27 +8,14 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            List<Vector3> points = new List<Vector3>()
-            {
-                new Vector3(0,0,0),
-                new Vector3(0,0,5),
-                new Vector3(2,0,5),
-                new Vector3(2,0,3),
-                new Vector3(5,0,3),
-                new Vector3(5,0,5),
-                new Vector3(7,0,5),
-                new Vector3(7,0,0),
-                new Vector3(0,0,0),
-            };
+            float z = -3.728099f;
+            Vector3 a = new Vector3(-0.52486f, 0, z);
+            Vector3 b = new Vector3(-4.176628f, 0, z);
+            Vector3 p = new Vector3(0.433864f, 0, z);
 
-            Vector3 checkP = new Vector3(3, 0, 5);
-            Console.WriteLine(Geometric.IsPointInArea(points.ToArray(), checkP));
+            float thick = 0.24f;
 
-            Console.WriteLine(Geometric.Meet(points[2], points[3], checkP, new Vector3(0, 0, 5)));
-
-            checkP = new Vector3(1,0,3);
-            Console.WriteLine(Geometric.IsPointInArea(points.ToArray(), checkP));
-
+            Console.WriteLine(Geometric.AlmostOnLine(a, b, thick, p));
         }
     }
 }
