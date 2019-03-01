@@ -800,15 +800,15 @@ namespace UnityGeometryHelper
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static float ClockYAngle(Vector3 a, Vector3 b)
+        public static float ClockYAngle(Vector3 dirA, Vector3 dirB)
         {
-            float angle = Vector3.Angle(new Vector3(a.x, 0, a.z), new Vector3(b.x, 0, b.z));
+            float angle = Vector3.Angle(new Vector3(dirA.x, 0, dirA.z), new Vector3(dirB.x, 0, dirB.z));
             if (angle.Equals(0))
             {
                 return angle;
             }
 
-            if (Vector3.Cross(a, b).y >= 0)
+            if (Vector3.Cross(dirA, dirB).y >= 0)
             {
                 return angle;
             }
@@ -818,9 +818,24 @@ namespace UnityGeometryHelper
             }
         }
 
-        public static float AbsYAngle(Vector3 a, Vector3 b)
+        public static float AbsYAngle(Vector3 pointA, Vector3 pointB, Vector3 checkDir)
         {
-            Vector3 ab = b - a;
+            Vector3 ab = pointB - pointA;
+            ab.y = 0;
+            Vector3 anx = checkDir;
+            if (Vector3.Cross(anx, ab).y <= 0)
+            {
+                return Vector3.Angle(anx, ab);
+            }
+            else
+            {
+                return 360 - Vector3.Angle(anx, ab);
+            }
+        }
+
+        public static float AbsYAngle(Vector3 pointA, Vector3 pointB)
+        {
+            Vector3 ab = pointB - pointA;
             ab.y = 0;
             Vector3 anx = new Vector3(0, 0, 1);
             if (Vector3.Cross(anx, ab).y <= 0)
