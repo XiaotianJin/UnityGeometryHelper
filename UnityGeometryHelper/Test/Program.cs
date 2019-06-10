@@ -8,14 +8,13 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            float z = -3.728099f;
-            Vector3 a = new Vector3(-0.52486f, 0, z);
-            Vector3 b = new Vector3(-4.176628f, 0, z);
-            Vector3 p = new Vector3(0.433864f, 0, z);
+            Vector3 a = new Vector3(-2000, 0, -3000);
+            Vector3 b = new Vector3(-2000, 0, -6000);
+            Vector3 p = new Vector3(-2000, 0, -2999);
 
-            float thick = 0.24f;
+            float thick = 240;
 
-            Console.WriteLine(Geometric.AlmostOnLine(a, b, thick, p));
+            Console.WriteLine(Geometric.IsPointAlmostOnSegment(a, b, thick, p));
         }
     }
 }

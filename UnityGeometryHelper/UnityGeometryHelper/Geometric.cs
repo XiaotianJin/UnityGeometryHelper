@@ -44,7 +44,7 @@ namespace UnityGeometryHelper
             int n = toCalcualte.Count;
             for (int i = 0; i < n; i++)
             {
-                if (Meet(toCalcualte[i], toCalcualte[(i + 1) % n], toCalcualte[(i + 2) % n], toCalcualte[(i + 3) % n]))
+                if (Geometric.Meet(toCalcualte[i], toCalcualte[(i + 1) % n], toCalcualte[(i + 2) % n], toCalcualte[(i + 3) % n]))
                 {
                     var temp = toCalcualte[(i + 2) % n];
                     toCalcualte[(i + 2) % n] = toCalcualte[(i + 1) % n];
@@ -55,7 +55,7 @@ namespace UnityGeometryHelper
             points = toCalcualte.ToArray();
 
             float area = 0f;
-            Vector3 ANXI = new Vector3(999, 0, 999);//要尽量远来补平舍入误差
+            Vector3 ANXI = toCalcualte[0] + Vector3.one * 100;//要尽量远来补平舍入误差
             for (int i = 0; i < points.Length; i++)
             {
                 area += cross(ANXI, points[i], points[(i + 1) % points.Length]);
