@@ -991,6 +991,19 @@ namespace UnityGeometryHelper
             return res;
         }
 
+        public static Vector3 GetHoverPointOf3DLine(Vector3 lp1, Vector3 lp2, Vector3 modelP)
+        {
+            float y = Vector3.Distance(lp2, modelP);
+            float z = Vector3.Distance(lp1, modelP);
+            float x = Vector3.Distance(lp1, lp2);
+            float q = (x + y + z) * 0.5f;
+            float area = Mathf.Sqrt(q * (q - x) * (q - y) * (q - z));
+
+            float hoverDis = area / x;
+            float fromyP = Mathf.Sqrt(y * y - hoverDis * hoverDis);
+
+            return lp2 + (lp1 - lp2).normalized * fromyP;
+        }
         #endregion
     }
 }
