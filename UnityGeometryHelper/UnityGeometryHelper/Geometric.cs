@@ -1005,5 +1005,51 @@ namespace UnityGeometryHelper
             return lp2 + (lp1 - lp2).normalized * fromyP;
         }
         #endregion
+
+        /// <summary>
+        /// 特殊的舍入进位算法
+        /// </summary>
+        /// <param name="value">需要变化的数值</param>
+        /// <param name="atIndex">保留到10^atIndex位</param>
+        /// <param name="step">位移步长，res=0+(i*step*2)</param>
+        /// <returns></returns>
+        public static double Round(double value, int atIndex = 0, float step = 0)
+        {
+            bool isNegative = false;
+            //如果是负数
+            if (value < 0)
+            {
+                isNegative = true;
+                value = -value;
+            }
+            double absValue = Math.Abs(value);
+
+            double iValue = Math.Pow(10, atIndex);// 扩张值
+
+            double thisBigInt = Math.Round(value * iValue, 0);// 取出扩张后的整数位
+
+            if (thisBigInt % 2 != 0)
+            {
+                if (thisBigInt < absValue * iValue)
+                {
+                    // 向下位移
+                    thisBigInt -= step;
+                }
+                else
+                {
+                    // 向上位移
+                    thisBigInt += step;
+                }
+            }
+
+            double res = thisBigInt / iValue;
+
+            if (isNegative)
+            {
+                res = -res;
+            }
+
+            return res;
+        }
     }
 }
