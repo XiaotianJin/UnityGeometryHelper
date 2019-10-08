@@ -349,8 +349,8 @@ namespace UnityGeometryHelper
                 return default(Vector3);
             }
 
-            var res = GetCorssPointOfSegment(point1 + _dir12 * 99999, point2 - _dir12 * 99999, point3 + _dir34 * 99999,
-                point4 - _dir34 * 99999);
+            var res = GetCorssPointOfSegment(point1 + _dir12 * 999, point2 - _dir12 * 999, point3 + _dir34 * 999,
+                point4 - _dir34 * 999);
             return res;
         }
 
