@@ -234,13 +234,44 @@ namespace UnityGeometryHelper
         /// <returns></returns>
         private static bool Pnpoly(int polySides, Vector3[] RegionVertexes, float x, float z)
         {
-            return PNpoly_X(polySides, RegionVertexes, x, z) || PNpoly_Y(polySides, RegionVertexes, x, z);
+            float maxX = float.MinValue;
+            float minX = float.MaxValue;
+            float maxz = float.MinValue;
+            float minz = float.MaxValue;
+
+            foreach (var thisP in RegionVertexes)
+            {
+                if (thisP.x > maxX)
+                {
+                    maxX = thisP.x;
+                }
+
+                if (thisP.x < minX)
+                {
+                    minX = thisP.x;
+                }
+
+                if (thisP.z > maxz)
+                {
+                    maxz = thisP.z;
+                }
+
+                if (thisP.z < minz)
+                {
+                    minz = thisP.z;
+                }
+            }
+
+            float xOffset = maxX - minX;
+            float zOffset = maxz - minz;
+
+            return PNpoly_X(polySides, RegionVertexes, x, z, zOffset) || PNpoly_Y(polySides, RegionVertexes, x, z, xOffset);
         }
 
-        private static bool PNpoly_Y(int polySides, Vector3[] RegionVertexes, float x, float z)
+        private static bool PNpoly_Y(int polySides, Vector3[] RegionVertexes, float x, float z, float maxOffset)
         {
-            Vector3 pointLeft = new Vector3(x, 0, z - 9999);
-            Vector3 pointRight = new Vector3(x, 0, z + 9999);
+            Vector3 pointLeft = new Vector3(x, 0, z - maxOffset);
+            Vector3 pointRight = new Vector3(x, 0, z + maxOffset);
             Vector3 pointSelf = new Vector3(x, 0, z);
 
             int left = 0;
@@ -267,10 +298,10 @@ namespace UnityGeometryHelper
             return false;
         }
 
-        private static bool PNpoly_X(int polySides, Vector3[] RegionVertexes, float x, float z)
+        private static bool PNpoly_X(int polySides, Vector3[] RegionVertexes, float x, float z, float maxOffset)
         {
-            Vector3 pointLeft = new Vector3(x - 9999, 0, z);
-            Vector3 pointRight = new Vector3(x + 9999, 0, z);
+            Vector3 pointLeft = new Vector3(x - maxOffset, 0, z);
+            Vector3 pointRight = new Vector3(x + maxOffset, 0, z);
             Vector3 pointSelf = new Vector3(x, 0, z);
 
             int left = 0;

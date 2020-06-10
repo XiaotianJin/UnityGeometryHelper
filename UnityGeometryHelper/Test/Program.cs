@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityGeometryHelper;
 
@@ -8,13 +9,18 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            Vector3 a = new Vector3(-2000, 0, -3000);
-            Vector3 b = new Vector3(-2000, 0, -6000);
-            Vector3 p = new Vector3(-2000, 0, -2999);
+            List<Vector3> points = new List<Vector3>()
+            {
+                new Vector3(-8623,0,-11289),
+                new Vector3(11808,0,-11289),
+                new Vector3(11808,0,5688),
+                new Vector3(-8623,0,5688),
+                new Vector3(-8623,0,5688),
+            };
 
-            float thick = 240;
+            Vector3 checkP = new Vector3(-5836,600,1031);
 
-            Console.WriteLine(Geometric.IsPointAlmostOnSegment(a, b, thick, p));
+            Console.WriteLine(Geometric.IsPointInArea(points.ToArray(), checkP));
         }
     }
 }
