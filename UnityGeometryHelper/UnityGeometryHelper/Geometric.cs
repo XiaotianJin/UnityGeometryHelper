@@ -265,7 +265,7 @@ namespace UnityGeometryHelper
             float xOffset = maxX - minX;
             float zOffset = maxz - minz;
 
-            return PNpoly_X(polySides, RegionVertexes, x, z, zOffset) || PNpoly_Y(polySides, RegionVertexes, x, z, xOffset);
+            return PNpoly_X(polySides, RegionVertexes, x, z, xOffset) || PNpoly_Y(polySides, RegionVertexes, x, z, zOffset);
         }
 
         private static bool PNpoly_Y(int polySides, Vector3[] RegionVertexes, float x, float z, float maxOffset)
